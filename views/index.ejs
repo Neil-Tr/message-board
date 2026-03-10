@@ -5,6 +5,21 @@
     <%- include('./partials/nav.ejs') %>
     <main class="content">
       <h1>Messages</h1>
+      <div class="message-list">
+        <% if (messages && messages.length) { %>
+          <% messages.forEach((message) => { %>
+            <article class="message">
+              <header class="message-header">
+                <strong><%= message.user %></strong>
+                <time><%= message.added.toLocaleString() %></time>
+              </header>
+              <p><%= message.text %></p>
+            </article>
+          <% }) %>
+        <% } else { %>
+          <p>No messages yet.</p>
+        <% } %>
+      </div>
     </main>
   </body>
 </html>

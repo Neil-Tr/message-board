@@ -68,6 +68,31 @@ form {
   box-shadow: 0 8px 24px rgba(31, 41, 51, 0.08);
 }
 
+.message-list {
+  display: grid;
+  gap: 16px;
+}
+
+.message {
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: #fafafa;
+}
+
+.message-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.message p {
+  margin: 8px 0 0;
+}
+
 h1,
 h2,
 h3 {

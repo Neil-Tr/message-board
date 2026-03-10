@@ -3,13 +3,16 @@
   <%- include('./partials/header.ejs') %>
 
   <body>
-      <%- include('./partials/nav.ejs') %>
-    <form>
-        <h3>Add new message:</h3>
-    <input type="text" id="name"></input>
-    <input type="text" id="new-message"></input>
+    <%- include('./partials/nav.ejs') %>
+    <form action="/new" method="POST">
+      <h3>Add new message:</h3>
+      <label for="author">Author</label>
+      <input type="text" id="author" name="author" required />
 
-      <button>Submit</button>
+      <label for="message">Message</label>
+      <input type="text" id="message" name="message" required />
+
+      <button type="submit">Submit</button>
     </form>
   </body>
 </html>
