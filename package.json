@@ -1,0 +1,24 @@
+{
+  "name": "message-board",
+  "version": "1.0.0",
+  "description": "message board",
+  "homepage": "https://github.com/Neil-Tr/message-board#readme",
+  "bugs": {
+    "url": "https://github.com/Neil-Tr/message-board/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Neil-Tr/message-board.git"
+  },
+  "license": "ISC",
+  "author": "Neil T",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "ejs": "^5.0.1",
+    "express": "^5.2.1"
+  }
+}
