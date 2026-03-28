@@ -1,43 +1,38 @@
+require("dotenv").config();
+
 const express = require("express");
 const path = require("path");
 const app = express();
-
-const messages = [
-  {
-    text: "Hi there!",
-    user: "Mang chang",
-    added: new Date(),
-  },
-  {
-    text: "Hi-fi",
-    user: "Ming ching",
-    added: new Date(),
-  },
-];
+const { initDb, getMessages, addMessage } = require("./db");
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.static(path.join(__dirname, "views")));
 app.use(express.urlencoded({ extended: false }));
 
-app.get("/", (req, res) => {
-  res.render("index", { title: "Home", messages });
+app.get("/", async (req, res, next) => {
+  try {
+    const messages = await getMessages();
+    res.render("index", { title: "Home", messages });
+  } catch (error) {
+    next(error);
+  }
 });
 
 app.get("/new", (req, res) => {
   res.render("new", { title: "New Message" });
 });
 
-app.post("/new", (req, res) => {
+app.post("/new", async (req, res, next) => {
   const { author, message } = req.body;
-  if (author && message) {
-    messages.unshift({
-      text: message,
-      user: author,
-      added: new Date(),
-    });
+  try {
+    if (author && message) {
+      await addMessage(author, message);
+    }
+    res.redirect("/");
+  } catch (error) {
+    next(error);
   }
-  res.redirect("/");
 });
 
 app.use((req, res) => {
@@ -45,6 +40,13 @@ app.use((req, res) => {
 });
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}`);
+
+(async () => {
+  await initDb();
+  app.listen(PORT, () => {
+    console.log(`Server listening on port ${PORT}`);
+  });
+})().catch((error) => {
+  console.error("Failed to start server:", error);
+  process.exit(1);
 });
